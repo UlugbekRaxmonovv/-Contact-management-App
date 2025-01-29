@@ -1,1 +1,1 @@
-Aytilgan task bajarildi Add, Edit, Delete, Filter Validatsion va localStoragega saqlash
+Aytilgan task bajarildi Add, Edit, Delete, Filter Validatsion Sort va localStoragega saqlash
