@@ -1,5 +1,5 @@
-import React, { useState,memo } from "react";
-import { Box, Pagination } from "@mui/material";
+import React, { useState, memo } from "react";
+import { Box, Button, Pagination } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import EditVsAdd from "../../components/EditVsAdd/EditVsAdd";
 import Deletes from "../../components/delete/Deletes";
@@ -20,6 +20,7 @@ const Tasks = () => {
   const [editId, setEditId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
   const [page, setPage] = useState(1);
   const pageSize = 4;
 
@@ -41,10 +42,13 @@ const Tasks = () => {
       item.phone.includes(search)
   );
 
-  const paginatedData = filteredData.slice(
-    (page - 1) * pageSize,
-    page * pageSize
-  );
+  const sortedData = [...filteredData].sort((a, b) => {
+    return sortOrder === "asc"
+      ? a.name.localeCompare(b.name)
+      : b.name.localeCompare(a.name);
+  });
+
+  const paginatedData = sortedData.slice((page - 1) * pageSize, page * pageSize);
 
   const handleAddTask = () => {
     setDialogType("add");
@@ -107,13 +111,15 @@ const Tasks = () => {
     setIsDialogOpen(false);
   };
 
+  const handleSort = () => {
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+  };
+
   return (
     <Box p={4}>
-      <AddSearch
-        handleAddTask={handleAddTask}
-        setSearch={setSearch}
-        search={search}
-      />
+      <AddSearch handleAddTask={handleAddTask} setSearch={setSearch} search={search} handleSort={handleSort} sortOrder={sortOrder} />
+
+    
 
       <TableContainers
         paginatedData={paginatedData}
@@ -131,6 +137,7 @@ const Tasks = () => {
           color="primary"
         />
       </Box>
+
       <EditVsAdd
         dialogType={dialogType}
         handleDialogSubmit={handleDialogSubmit}
