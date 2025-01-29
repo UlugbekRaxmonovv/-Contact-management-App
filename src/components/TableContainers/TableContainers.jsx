@@ -22,27 +22,29 @@ const TableContainers = ({
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center">№</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell align="center">Actions</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }} >
+                №
+              </TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }}>Phone</TableCell>
+              <TableCell sx={{ fontWeight: "bold" }} align="center">
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {paginatedData.map((task, index) => (
               <TableRow key={task.id}>
-                <TableCell align="center">
+                <TableCell >
                   {(page - 1) * pageSize + index + 1}
                 </TableCell>
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.email}</TableCell>
-                <TableCell   style={{ whiteSpace: "nowrap" }}>{task.phone}</TableCell>
-                <TableCell
-                  align="center"
-                  style={{ whiteSpace: "nowrap" }}
-                  
-                >
+                <TableCell style={{ whiteSpace: "nowrap" }}>
+                  {task.phone}
+                </TableCell>
+                <TableCell align="center" style={{ whiteSpace: "nowrap" }}>
                   <IconButton
                     color="primary"
                     onClick={() => handleEditTask(task.id)}
