@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   Table,
   TableBody,
@@ -37,8 +37,12 @@ const TableContainers = ({
                 </TableCell>
                 <TableCell>{task.name}</TableCell>
                 <TableCell>{task.email}</TableCell>
-                <TableCell>{task.phone}</TableCell>
-                <TableCell align="center">
+                <TableCell   style={{ whiteSpace: "nowrap" }}>{task.phone}</TableCell>
+                <TableCell
+                  align="center"
+                  style={{ whiteSpace: "nowrap" }}
+                  
+                >
                   <IconButton
                     color="primary"
                     onClick={() => handleEditTask(task.id)}
@@ -61,4 +65,4 @@ const TableContainers = ({
   );
 };
 
-export default TableContainers;
+export default memo(TableContainers);

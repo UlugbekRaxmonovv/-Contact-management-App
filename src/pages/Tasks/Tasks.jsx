@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,memo } from "react";
 import { Box, Pagination } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import EditVsAdd from "../../components/EditVsAdd/EditVsAdd";
@@ -21,23 +21,17 @@ const Tasks = () => {
   const [deleteId, setDeleteId] = useState(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const pageSize = 5;
+  const pageSize = 4;
 
   const validateEmail = (email) => {
-    if (!email.includes("@") || !email.includes(".")) {
-      alert("Email must contain @ and domain (e.g., example@gmail.com)");
-      return false;
+    if (!email.includes("@") && !email.includes(".")) {
+      return true;
     }
-    return true;
   };
 
   const validatePhone = (phone) => {
     const cleanPhone = phone.replace(/\D/g, "");
-    if (cleanPhone.length !== 12 || !cleanPhone.startsWith("998")) {
-      alert("Phone number must be in format: +998 XX XXX XX XX");
-      return false;
-    }
-    return true;
+    return cleanPhone.length === 12 && cleanPhone.startsWith("998");
   };
 
   const filteredData = data.filter(
@@ -62,6 +56,7 @@ const Tasks = () => {
 
   const handleEditTask = (id) => {
     const taskToEdit = data.find((task) => task.id === id);
+    if (!taskToEdit) return;
     setDialogType("edit");
     setEditId(id);
     setName(taskToEdit.name);
@@ -83,13 +78,15 @@ const Tasks = () => {
   };
 
   const handleDialogSubmit = () => {
-    if (!name || !phone || !email) {
-      alert("Please fill in all fields!");
+    if (!validateEmail(email)) {
+      alert("Email noto'g'ri kiritilgan!");
       return;
     }
-    if (!validateEmail(email) || !validatePhone(phone)) {
+    if (!validatePhone(phone)) {
+      alert("Telefon raqami formati noto'g'ri: +998 XX XXX XX XX");
       return;
     }
+
     if (dialogType === "add") {
       const newTask = {
         id: uuidv4(),
@@ -144,7 +141,6 @@ const Tasks = () => {
         phone={phone}
         setName={setName}
         name={name}
-        setIsDialogOpens={setIsDialogOpen}
         isDialogOpen={isDialogOpen}
       />
       <Deletes
@@ -156,4 +152,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default memo(Tasks);

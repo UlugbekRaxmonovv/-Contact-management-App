@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ const AddSearch = ({handleAddTask, setSearch, search}) => {
         justifyContent="space-between"
         mb={2}
         flexWrap="wrap"
+        
       >
         <Button
           variant="contained"
@@ -54,4 +55,4 @@ const AddSearch = ({handleAddTask, setSearch, search}) => {
   );
 };
 
-export default AddSearch;
+export default memo(AddSearch);

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 import {
     Box,
     Button,
@@ -7,9 +7,8 @@ import {
     DialogActions,
     DialogContent,
     DialogTitle,
-    
-  } from "@mui/material";
-  import { NumericFormat } from "react-number-format";
+    } from "@mui/material";
+  import { PatternFormat } from 'react-number-format'
 
 const EditVsAdd = ({
   dialogType,
@@ -39,7 +38,7 @@ const EditVsAdd = ({
         }}
       >
         <DialogTitle>
-          {dialogType === "add" ? "Add Task" : "Edit Task"}
+          {dialogType === "add" ? "Contact add" : "Contact Update"}
         </DialogTitle>
         <DialogContent>
           <Box mb={2}>
@@ -51,18 +50,7 @@ const EditVsAdd = ({
               margin="normal"
             />
           </Box>
-          <Box mb={2}>
-            <NumericFormat
-              customInput={TextField}
-              fullWidth
-              format="+998 ## ### ## ##"
-              mask="_"
-              label="Phone"
-              value={phone}
-              onValueChange={(values) => setPhone(values.formattedValue)}
-              margin="normal"
-            />
-          </Box>
+          
           <Box mb={2}>
             <TextField
               fullWidth
@@ -70,6 +58,17 @@ const EditVsAdd = ({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               margin="normal"
+            />
+          </Box>
+          <Box mb={2}>
+              <PatternFormat
+                 customInput={TextField}
+              placeholder='+998 (__) ___-__-__'
+              format="+998 (##) ###-##-##"
+              mask="_"
+              value={phone}
+              onValueChange={(values) => setPhone(values.formattedValue)}
+              className="w-full px-2 py-1 border rounded"
             />
           </Box>
         </DialogContent>
@@ -86,4 +85,4 @@ const EditVsAdd = ({
   );
 };
 
-export default EditVsAdd;
+export default memo(EditVsAdd);
