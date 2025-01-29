@@ -24,11 +24,6 @@ const Tasks = () => {
   const [page, setPage] = useState(1);
   const pageSize = 4;
 
-  const validateEmail = (email) => {
-    if (!email.includes("@") && !email.includes(".")) {
-      return true;
-    }
-  };
 
   const validatePhone = (phone) => {
     const cleanPhone = phone.replace(/\D/g, "");
@@ -82,10 +77,6 @@ const Tasks = () => {
   };
 
   const handleDialogSubmit = () => {
-    if (!validateEmail(email)) {
-      alert("Email noto'g'ri kiritilgan!");
-      return;
-    }
     if (!validatePhone(phone)) {
       alert("Telefon raqami formati noto'g'ri: +998 XX XXX XX XX");
       return;
